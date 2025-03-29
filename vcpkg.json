@@ -1,5 +1,15 @@
 {
   "dependencies": [
-    "fmt"
+    "fmt",
+    {
+      "name": "imgui",
+      "features": [
+        "glfw-binding",
+        "opengl3-binding",
+        "docking-experimental"
+      ],
+      "version>=": "1.91.9"
+    },
+    "glew"
   ]
 }

@@ -1,21 +1,13 @@
 set(PROJECT_NAME "main")
 
-set(HEADER_FILES
-    bindings/imgui_impl_glfw.h
-    bindings/imgui_impl_opengl3.h
-    bindings/imgui_impl_opengl3_loader.h
-)
-set(SOURCE_FILES
-    main.cpp
-    bindings/imgui_impl_glfw.cpp
-    bindings/imgui_impl_opengl3.cpp
-)
+set(HEADER_FILES)
+set(SOURCE_FILES main.cpp)
 set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
 
-find_package(fmt REQUIRED)
-find_package(imgui REQUIRED)
-find_package(glfw3 REQUIRED)
-find_package(glew REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(glew CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
