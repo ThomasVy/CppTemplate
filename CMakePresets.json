@@ -33,5 +33,20 @@
          "stopOnFailure": true
        }
      }
-   ]
- }
+   ],
+  "workflowPresets": [
+    {
+      "name": "win-debug",
+      "steps": [
+        {
+          "type": "configure",
+          "name": "win-debug"
+        },
+        {
+          "type": "build",
+          "name": "win-debug"
+        }
+      ]
+    }
+  ]
+}
