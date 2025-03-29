@@ -12,5 +12,6 @@
   IndentWidth: '2'
   NamespaceIndentation: All
   BreakBeforeBinaryOperators: All
+  SortIncludes: false
   BreakBeforeTernaryOperators: 'true'
 ...
