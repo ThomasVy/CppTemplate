@@ -1,16 +1,10 @@
 set(PROJECT_NAME "main")
 
-set(HEADER_FILES
-    bindings/imgui_impl_glfw.h
-    bindings/imgui_impl_opengl3.h
-    bindings/imgui_impl_opengl3_loader.h
-)
-set(SOURCE_FILES
-    main.cpp
-    bindings/imgui_impl_glfw.cpp
-    bindings/imgui_impl_opengl3.cpp
-)
+set(HEADER_FILES)
+set(SOURCE_FILES main.cpp)
 set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
+
+find_package(fmt REQUIRED)
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
@@ -21,8 +15,4 @@ target_compile_options(
 )
 
 # Link dependencies
-target_compile_definitions(${PROJECT_NAME} PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLEW)
-target_link_libraries(
-    ${PROJECT_NAME}
-    PRIVATE fmt::fmt imgui::imgui glfw GLEW::GLEW
-)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt)

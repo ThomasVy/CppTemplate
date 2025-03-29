@@ -1,5 +1,5 @@
 build
 CMakeUserPresets.json
-src/bindings
+imgui_src/bindings
 imgui.ini
 
