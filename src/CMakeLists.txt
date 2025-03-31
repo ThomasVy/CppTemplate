@@ -5,6 +5,7 @@ set(SOURCE_FILES main.cpp)
 set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
 
 find_package(fmt CONFIG REQUIRED)
+find_package(cxxopts CONFIG REQUIRED)
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
@@ -15,4 +16,4 @@ target_compile_options(
 )
 
 # Link dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt-header-only)
+target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt-header-only cxxopts::cxxopts)

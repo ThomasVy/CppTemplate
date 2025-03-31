@@ -1,6 +1,7 @@
 ---
+  Language: Cpp
   BasedOnStyle: Google
-  AccessModifierOffset: '-2'
+  AccessModifierOffset: 0
   AlignTrailingComments: 'true'
   AllowAllParametersOfDeclarationOnNextLine: 'false'
   AlwaysBreakTemplateDeclarations: 'No'
@@ -14,4 +15,4 @@
   BreakBeforeBinaryOperators: All
   SortIncludes: false
   BreakBeforeTernaryOperators: 'true'
-...
+
