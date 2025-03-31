@@ -1,0 +1,3 @@
+[submodule "include/common_cpp_helpers"]
+	path = include/common_cpp_helpers
+	url = git@github.com:ThomasVy/CommonCppHelpers.git
