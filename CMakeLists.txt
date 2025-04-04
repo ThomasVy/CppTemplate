@@ -5,5 +5,4 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_CXX_STANDARD 23) # Project default
 set(CMAKE_CXX_STANDARD_REQUIRED On)
 
-# add_subdirectory(imgui_src)
 add_subdirectory(src)

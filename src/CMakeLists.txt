@@ -5,7 +5,9 @@ set(SOURCE_FILES main.cpp)
 set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
 
 find_package(fmt CONFIG REQUIRED)
-find_package(cxxopts CONFIG REQUIRED)
+find_package(imgui CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(glew REQUIRED)
 
 add_executable(${PROJECT_NAME} ${ALL_FILES})
 
@@ -16,4 +18,8 @@ target_compile_options(
 )
 
 # Link dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt-header-only cxxopts::cxxopts)
+target_compile_definitions(${PROJECT_NAME} PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLEW)
+target_link_libraries(
+    ${PROJECT_NAME}
+    PRIVATE fmt::fmt-header-only imgui::imgui glfw GLEW::GLEW
+)
