@@ -1,15 +1,17 @@
-#include <fmt/base.h>
-#include "fmt/core.h"
 #include "cxxopts.hpp"
+#include "fmt/core.h"
+#include <fmt/base.h>
 
 static constexpr auto g_NAME = "Thomas";
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
   fmt::println("Hello World {}", g_NAME);
   cxxopts::Options options("Template App", "This is a template app");
 
   options.add_options()("b,bar", "Param bar", cxxopts::value<std::string>())(
-      "d,debug", "Enable debugging", cxxopts::value<bool>()->default_value("false"))(
-      "f,foo", "Param foo", cxxopts::value<int>()->default_value("10"))("h,help", "Print usage");
+      "d,debug", "Enable debugging",
+      cxxopts::value<bool>()->default_value("false"))(
+      "f,foo", "Param foo",
+      cxxopts::value<int>()->default_value("10"))("h,help", "Print usage");
 
   auto result = options.parse(argc, argv);
 
