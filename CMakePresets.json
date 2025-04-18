@@ -6,25 +6,53 @@
    },
    "configurePresets": [
      {
-       "name": "win-debug",
+       "name": "windows",
        "generator": "Ninja",
+       "hidden": true,
        "binaryDir": "${sourceDir}/build/${presetName}",
        "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
        "cacheVariables": {
          "CMAKE_BUILD_TYPE": "Debug"
+       },
+       "condition": {
+         "type": "equals",
+         "lhs": "${hostSystemName}",
+         "rhs": "Windows"
        }
+     },
+     {
+       "name": "linux",
+       "generator": "Ninja",
+       "hidden": true,
+       "binaryDir": "${sourceDir}/build/${presetName}",
+       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+       "cacheVariables": {
+         "CMAKE_BUILD_TYPE": "Debug"
+       },
+       "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Linux"
+       }
+     }, 
+     {
+       "name": "default",
+       "inherits": [
+         "linux",
+         "windows"
+       ]
      }
    ],
    "buildPresets": [
      {
-       "name": "win-debug",
-       "configurePreset": "win-debug"
+       "name": "default",
+       "configurePreset": "default"
      }
    ],
    "testPresets": [
      {
-       "name": "win-debug",
-       "configurePreset": "win-debug",
+       "name": "default",
+       "configurePreset": "default",
        "output": {
          "outputOnFailure": true
        },
@@ -36,15 +64,15 @@
    ],
   "workflowPresets": [
     {
-      "name": "win-debug",
+      "name": "default",
       "steps": [
         {
           "type": "configure",
-          "name": "win-debug"
+          "name": "default"
         },
         {
           "type": "build",
-          "name": "win-debug"
+          "name": "default"
         }
       ]
     }

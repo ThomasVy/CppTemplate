@@ -1,5 +1,5 @@
 CompileFlags:
-  CompilationDatabase: build/win-debug       # Search build/ directory for compile_commands.json
+  CompilationDatabase: build/default
 
 Diagnostics:
   Suppress: 
