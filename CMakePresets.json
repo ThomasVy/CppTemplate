@@ -7,13 +7,6 @@
    "configurePresets": [
      {
        "name": "windows",
-       "generator": "Ninja",
-       "hidden": true,
-       "binaryDir": "${sourceDir}/build/${presetName}",
-       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-       "cacheVariables": {
-         "CMAKE_BUILD_TYPE": "Debug"
-       },
        "condition": {
          "type": "equals",
          "lhs": "${hostSystemName}",
@@ -22,13 +15,6 @@
      },
      {
        "name": "linux",
-       "generator": "Ninja",
-       "hidden": true,
-       "binaryDir": "${sourceDir}/build/${presetName}",
-       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-       "cacheVariables": {
-         "CMAKE_BUILD_TYPE": "Debug"
-       },
        "condition": {
         "type": "equals",
         "lhs": "${hostSystemName}",
@@ -38,9 +24,15 @@
      {
        "name": "default",
        "inherits": [
-         "linux",
-         "windows"
-       ]
+         "windows",
+         "linux"
+       ],
+       "generator": "Ninja",
+       "binaryDir": "${sourceDir}/build/${presetName}",
+       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
+       "cacheVariables": {
+         "CMAKE_BUILD_TYPE": "Debug"
+       }
      }
    ],
    "buildPresets": [
