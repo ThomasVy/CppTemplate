@@ -6,27 +6,7 @@
    },
    "configurePresets": [
      {
-       "name": "windows",
-       "condition": {
-         "type": "equals",
-         "lhs": "${hostSystemName}",
-         "rhs": "Windows"
-       }
-     },
-     {
-       "name": "linux",
-       "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Linux"
-       }
-     }, 
-     {
        "name": "default",
-       "inherits": [
-         "windows",
-         "linux"
-       ],
        "generator": "Ninja",
        "binaryDir": "${sourceDir}/build/${presetName}",
        "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
