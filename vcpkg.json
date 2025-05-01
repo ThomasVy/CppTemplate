@@ -1,6 +1,7 @@
 {
   "dependencies": [
+    "cxxopts",
     "fmt",
-    "cxxopts"
+    "wil"
   ]
 }
