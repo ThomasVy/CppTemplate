@@ -4,3 +4,4 @@ AlignAfterOpenBracket: AlwaysBreak
 BinPackArguments: false
 BinPackParameters: false
 NamespaceIndentation: All
+IndentWidth: 4
