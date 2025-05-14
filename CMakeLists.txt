@@ -6,3 +6,4 @@ set(CMAKE_CXX_STANDARD 23) # Project default
 set(CMAKE_CXX_STANDARD_REQUIRED On)
 
 add_subdirectory(src)
+add_subdirectory(external/common)
