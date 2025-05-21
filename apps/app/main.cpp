@@ -2,6 +2,7 @@
 
 #include "cxxopts.hpp"
 #include "fmt/core.h"
+#include "libA/libA.h"
 
 static constexpr auto g_NAME = "Thomas";
 int main(int argc, char *argv[]) {
@@ -29,5 +30,6 @@ int main(int argc, char *argv[]) {
     int foo = result["foo"].as<int>();
 
     fmt::print("foo is {}, bar is {}, debug is {}", foo, bar, debug);
+    libA::function();
     return 0;
 }

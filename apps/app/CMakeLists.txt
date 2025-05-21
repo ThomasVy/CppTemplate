@@ -1,13 +1,9 @@
-set(PROJECT_NAME "main")
-
-set(HEADER_FILES)
-set(SOURCE_FILES main.cpp)
-set(ALL_FILES ${HEADER_FILES} ${SOURCE_FILES})
+set(PROJECT_NAME "app")
 
 find_package(fmt CONFIG REQUIRED)
 find_package(cxxopts CONFIG REQUIRED)
 
-add_executable(${PROJECT_NAME} ${ALL_FILES})
+add_executable(${PROJECT_NAME} "main.cpp")
 
 # being a cross-platform target, we enforce standards conformance on MSVC
 target_compile_options(
@@ -20,9 +16,5 @@ target_link_libraries(
     ${PROJECT_NAME}
     PRIVATE fmt::fmt-header-only cxxopts::cxxopts
 )
-target_include_directories(
-    ${PROJECT_NAME}
-    PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
-        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
-)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE libA)
