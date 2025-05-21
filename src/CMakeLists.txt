@@ -16,4 +16,13 @@ target_compile_options(
 )
 
 # Link dependencies
-target_link_libraries(${PROJECT_NAME} PRIVATE fmt::fmt-header-only cxxopts::cxxopts)
+target_link_libraries(
+    ${PROJECT_NAME}
+    PRIVATE fmt::fmt-header-only cxxopts::cxxopts
+)
+target_include_directories(
+    ${PROJECT_NAME}
+    PUBLIC
+        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/include>
+        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/include>
+)
