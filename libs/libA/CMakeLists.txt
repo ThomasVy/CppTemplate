@@ -10,7 +10,5 @@ target_compile_options(
 
 target_include_directories(
     ${PROJECT_NAME}
-    PUBLIC
-        $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/libs/libA/include>
-        $<BUILD_INTERFACE:${PROJECT_BINARY_DIR}/libs/libA/include>
+    PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
 )

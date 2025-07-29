@@ -14,3 +14,7 @@ class MyTest : public ::testing::Test {
 TEST_F(MyTest, ExampleTest) {
     EXPECT_EQ(1, 1);  // This should pass
 }
+
+TEST_F(MyTest, AnotherTest) {
+    EXPECT_EQ(1, 1);  // This should pass
+}

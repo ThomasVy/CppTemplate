@@ -3,7 +3,7 @@ set(PROJECT_NAME "app")
 find_package(fmt CONFIG REQUIRED)
 find_package(cxxopts CONFIG REQUIRED)
 
-add_executable(${PROJECT_NAME} "main.cpp")
+add_executable(${PROJECT_NAME} "src/main.cpp")
 
 # being a cross-platform target, we enforce standards conformance on MSVC
 target_compile_options(
@@ -18,3 +18,7 @@ target_link_libraries(
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE libA)
+target_include_directories(
+    ${PROJECT_NAME}
+    PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+)
