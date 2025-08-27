@@ -11,33 +11,26 @@
       "generator": "Ninja"
     },
     {
-      "name": "ConfigDefault",
+      "name": "default",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_C_COMPILER": "cl",
-        "CMAKE_CXX_COMPILER": "cl",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       },
-      "inherits": "ConfigBase",
-      "condition": {
-        "type": "equals",
-        "lhs": "${hostSystemName}",
-        "rhs": "Windows"
-      }
+      "inherits": "ConfigBase"
     }
   ],
   "buildPresets": [
     {
-      "name": "BuildDefault",
-      "configurePreset": "ConfigDefault"
+      "name": "default",
+      "configurePreset": "default"
     }
   ],
   "testPresets": [
     {
-      "name": "TestDefault",
-      "configurePreset": "ConfigDefault",
+      "name": "default",
+      "configurePreset": "default",
       "output": {
         "outputOnFailure": true
       },
@@ -49,8 +42,8 @@
   ],
   "packagePresets": [
     {
-      "name": "PackageDefault",
-      "configurePreset": "ConfigDefault",
+      "name": "default",
+      "configurePreset": "default",
       "displayName": "Default Zip Package",
       "generators": [
         "ZIP"
@@ -59,23 +52,23 @@
   ],
   "workflowPresets": [
     {
-      "name": "WorkflowDefault",
+      "name": "default",
       "steps": [
         {
           "type": "configure",
-          "name": "ConfigDefault"
+          "name": "default"
         },
         {
           "type": "build",
-          "name": "BuildDefault"
+          "name": "default"
         },
         {
           "type": "test",
-          "name": "TestDefault"
+          "name": "default"
         },
         {
           "type": "package",
-          "name": "PackageDefault"
+          "name": "default"
         }
       ]
     }
