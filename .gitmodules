@@ -1,3 +1,3 @@
 [submodule "external/common"]
 	path = external/common
-	url = ../common.git
+	url = ../CommonCppHelpers.git
