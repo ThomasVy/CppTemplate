@@ -1,9 +1,0 @@
-{
-  "dependencies": [
-    "cxxopts",
-    "fmt",
-    "gtest",
-    "wil",
-    "spdlog"
-  ]
-}

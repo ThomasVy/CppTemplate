@@ -8,17 +8,27 @@
     {
       "name": "ConfigBase",
       "hidden": true,
-      "generator": "Ninja"
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
+      }
+    },
+    {
+      "name": "windows-msvc",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
+      "condition": {
+        "type": "equals",
+        "lhs": "${hostSystemName}",
+        "rhs": "Windows"
+      }
     },
     {
       "name": "default",
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "toolchainFile": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
-      },
-      "inherits": "ConfigBase"
+      "inherits":[  "ConfigBase", "windows-msvc"  ]
     }
   ],
   "buildPresets": [

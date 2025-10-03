@@ -1,3 +1,9 @@
 [submodule "external/common"]
 	path = external/common
 	url = ../CommonCppHelpers.git
+[submodule "cmake/WindowsToolchain"]
+	path = cmake/WindowsToolchain
+	url = https://github.com/MarkSchofield/WindowsToolchain.git
+[submodule "cmake/cmake-conan"]
+	path = cmake/cmake-conan
+	url = https://github.com/conan-io/cmake-conan.git

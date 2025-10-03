@@ -14,7 +14,7 @@ target_compile_options(
 # Link dependencies
 target_link_libraries(
     ${PROJECT_NAME}
-    PRIVATE fmt::fmt-header-only cxxopts::cxxopts
+    PRIVATE fmt::fmt cxxopts::cxxopts
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE libA)
