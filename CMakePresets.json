@@ -11,8 +11,7 @@
       "binaryDir": "${sourceDir}/build/${presetName}",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
       }
     }
   ],
