@@ -1,9 +1,14 @@
 from conan import ConanFile
-from conan.tools.cmake import cmake_layout
+from conan.tools.cmake import cmake_layout, CMakeToolchain
 
 class CppTemplate(ConanFile):
     settings = "os", "compiler", "build_type", "arch"
-    generators = "CMakeDeps", "VirtualBuildEnv", "CMakeToolchain"
+    generators = "CMakeDeps", "VirtualBuildEnv"
+
+    def generate(self):
+        tc = CMakeToolchain(self, generator="Ninja")
+        tc.user_presets_path = 'ConanPresets.json'
+        tc.generate()
 
     def layout(self):
         cmake_layout(self)
