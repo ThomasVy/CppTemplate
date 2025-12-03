@@ -42,15 +42,15 @@ int main(int argc, char *argv[]) {
         fmt::print(
             "Failed to create expected value: {}\n", expected_success.error());
     }
-    // auto optional_value = libA::create_myclass(true);
-    //
-    // if (optional_value) {
-    //     fmt::print(
-    //         "Optional MyClass created successfully with data: {}\n",
-    //         optional_value->data);
-    // } else {
-    //     fmt::print("Optional MyClass is empty\n");
-    // }
+    auto optional_value = libA::create_myclass(true);
+
+    if (optional_value) {
+        fmt::print(
+            "Optional MyClass created successfully with data: {}\n",
+            optional_value->data);
+    } else {
+        fmt::print("Optional MyClass is empty\n");
+    }
     // auto normal_value = libA::create_myclass_normal(false);
 
     return 0;

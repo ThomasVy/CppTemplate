@@ -7,7 +7,9 @@ namespace libA {
     void fun() { std::cout << "We are inside fun" << std::endl; }
     void fun2() { std::cout << "libA::fun2()" << std::endl; }
 
-    // Lesson learned: do not use both nrvo and rvo in the same function
+    // Lesson learned:
+    // 1. do not use both nrvo and rvo in the same function
+    // 2.To get NRVO or RVO, must have move contructor
     std::expected<MyClass, std::string> create_expected_value(bool success) {
         if (success) {
             return std::expected<MyClass, std::string>(
