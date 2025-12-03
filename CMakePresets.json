@@ -9,14 +9,31 @@
       "name": "default",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
+      "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
         "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
       }
+    },
+    {
+      "name": "release",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/build/${presetName}",
+      "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
+      }
     }
+
   ],
   "buildPresets": [
+    {
+      "name": "release",
+      "configurePreset": "release"
+    },
     {
       "name": "default",
       "configurePreset": "default"

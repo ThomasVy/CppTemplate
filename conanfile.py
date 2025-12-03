@@ -9,7 +9,7 @@ class CppTemplate(ConanFile):
         cmake_layout(self)
 
     def configure(self):
-         self.options["fmt"].shared = True
+         self.options["fmt"].shared = False
 
     def imports(self):
        self.copy("*.dll", "", "bin")
