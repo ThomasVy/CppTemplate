@@ -31,5 +31,6 @@ int main(int argc, char *argv[]) {
 
     fmt::print("foo is {}, bar is {}, debug is {}", foo, bar, debug);
     libA::function();
+    libA::fun();
     return 0;
 }
