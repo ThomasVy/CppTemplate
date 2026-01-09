@@ -7,7 +7,7 @@ enable_testing()
 
 add_subdirectory(apps/app)
 add_subdirectory(external/common)
-add_subdirectory(libs/libA)
+add_subdirectory(libs/stock_problem)
 
 if(BUILD_TESTING)
     add_subdirectory(tests)

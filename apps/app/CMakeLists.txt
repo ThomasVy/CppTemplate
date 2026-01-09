@@ -17,7 +17,7 @@ target_link_libraries(
     PRIVATE fmt::fmt cxxopts::cxxopts
 )
 
-target_link_libraries(${PROJECT_NAME} PRIVATE libA)
+target_link_libraries(${PROJECT_NAME} PRIVATE stock_problem)
 target_include_directories(
     ${PROJECT_NAME}
     PRIVATE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

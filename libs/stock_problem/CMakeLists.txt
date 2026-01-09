@@ -1,6 +1,6 @@
-set(PROJECT_NAME "libA")
+set(PROJECT_NAME "stock_problem")
 
-add_library(${PROJECT_NAME} STATIC "src/libA.cpp")
+add_library(${PROJECT_NAME} STATIC "src/stock_problem.cpp")
 
 # being a cross-platform target, we enforce standards conformance on MSVC
 target_compile_options(
