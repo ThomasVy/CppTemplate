@@ -33,7 +33,10 @@ namespace stock_problem::test {
                 .expected_output = {.buy_date = 0, .sell_date = 0}},
             StockProblemParams{
                 .input_prices = {4, 1, 7, 8, 12},
-                .expected_output = {.buy_date = 1, .sell_date = 4}})
+                .expected_output = {.buy_date = 1, .sell_date = 4}},
+            StockProblemParams{
+                .input_prices = {3, 2, 1, 4, 5},
+                .expected_output = {.buy_date = 2, .sell_date = 4}})
 
     );
 }  // namespace stock_problem::test
