@@ -1,5 +1,7 @@
 CompileFlags:
   CompilationDatabase: build/default
+  Add: 
+    - /std:c++latest
 
 Diagnostics:
   Suppress: 
