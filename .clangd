@@ -1,6 +1,6 @@
 CompileFlags:
-  CompilationDatabase: build/default
-  Add: 
+  CompilationDatabase: build/debug
+  Add:
     - /std:c++latest
 
 Diagnostics:

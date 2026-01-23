@@ -7,24 +7,29 @@
   "configurePresets": [
     {
       "name": "default",
+      "hidden": true,
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/build/${presetName}",
       "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "CONAN_HOST_PROFILE": "${sourceDir}/profiles/windows_profile",
+        "CONAN_BUILD_PROFILE": "${sourceDir}/profiles/windows_profile",
         "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
       }
     },
     {
-      "name": "release",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
+      "name": "debug",
+      "inherits": ["default"],
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
+        "CMAKE_BUILD_TYPE": "Debug"
+      }
+    },
+    {
+      "name": "release",
+      "inherits": ["default"],
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release"
       }
     }
 
@@ -35,14 +40,14 @@
       "configurePreset": "release"
     },
     {
-      "name": "default",
-      "configurePreset": "default"
+      "name": "debug",
+      "configurePreset": "debug"
     }
   ],
   "testPresets": [
     {
-      "name": "default",
-      "configurePreset": "default",
+      "name": "debug",
+      "configurePreset": "debug",
       "output": {
         "outputOnFailure": true
       },
@@ -54,9 +59,9 @@
   ],
   "packagePresets": [
     {
-      "name": "default",
-      "configurePreset": "default",
-      "displayName": "Default Zip Package",
+      "name": "debug",
+      "configurePreset": "debug",
+      "displayName": "debug Zip Package",
       "generators": [
         "ZIP"
       ]
@@ -64,23 +69,23 @@
   ],
   "workflowPresets": [
     {
-      "name": "default",
+      "name": "debug",
       "steps": [
         {
           "type": "configure",
-          "name": "default"
+          "name": "debug"
         },
         {
           "type": "build",
-          "name": "default"
+          "name": "debug"
         },
         {
           "type": "test",
-          "name": "default"
+          "name": "debug"
         },
         {
           "type": "package",
-          "name": "default"
+          "name": "debug"
         }
       ]
     }
