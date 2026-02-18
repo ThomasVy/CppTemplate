@@ -6,48 +6,86 @@
   },
   "configurePresets": [
     {
+      "name": "windows",
+      "hidden": true,
+      "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
+      "cacheVariables": {
+        "CONAN_HOST_PROFILE": "${sourceDir}/profiles/windows_profile",
+        "CONAN_BUILD_PROFILE": "${sourceDir}/profiles/windows_profile"
+      }
+    },
+    {
+      "name": "linux",
+      "hidden": true,
+      "cacheVariables": {
+        "CONAN_HOST_PROFILE": "${sourceDir}/profiles/linux_profile",
+        "CONAN_BUILD_PROFILE": "${sourceDir}/profiles/linux_profile"
+      }
+    },
+    {
       "name": "default",
       "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build/${presetName}",
-      "toolchainFile": "${sourceDir}/cmake/WindowsToolchain/Windows.MSVC.toolchain.cmake",
       "cacheVariables": {
         "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
-        "CONAN_HOST_PROFILE": "${sourceDir}/profiles/windows_profile",
-        "CONAN_BUILD_PROFILE": "${sourceDir}/profiles/windows_profile",
         "CMAKE_PROJECT_TOP_LEVEL_INCLUDES": "${sourceDir}/cmake/cmake-conan/conan_provider.cmake"
       }
     },
     {
       "name": "debug",
-      "inherits": ["default"],
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/debug",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug"
       }
     },
     {
       "name": "release",
-      "inherits": ["default"],
+      "hidden": true,
+      "binaryDir": "${sourceDir}/build/release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release"
       }
+    },
+    {
+      "name": "debug-windows",
+      "inherits": ["default", "windows", "debug"]
+    },
+    {
+      "name": "release-windows",
+      "inherits": ["default", "windows", "release"]
+    },
+    {
+      "name": "debug-linux",
+      "inherits": ["default", "linux", "debug"]
+    },
+    {
+      "name": "release-linux",
+      "inherits": ["default", "linux", "release"]
     }
-
   ],
   "buildPresets": [
     {
-      "name": "release",
-      "configurePreset": "release"
+      "name": "release-windows",
+      "configurePreset": "release-windows"
     },
     {
-      "name": "debug",
-      "configurePreset": "debug"
+      "name": "debug-windows",
+      "configurePreset": "debug-windows"
+    },
+    {
+      "name": "release-linux",
+      "configurePreset": "release-linux"
+    },
+    {
+      "name": "debug-linux",
+      "configurePreset": "debug-linux"
     }
   ],
   "testPresets": [
     {
-      "name": "debug",
-      "configurePreset": "debug",
+      "name": "debug-windows",
+      "configurePreset": "debug-windows",
       "output": {
         "outputOnFailure": true
       },
@@ -59,33 +97,31 @@
   ],
   "packagePresets": [
     {
-      "name": "debug",
-      "configurePreset": "debug",
-      "displayName": "debug Zip Package",
-      "generators": [
-        "ZIP"
-      ]
+      "name": "debug-windows",
+      "configurePreset": "debug-windows",
+      "displayName": "debug-windows Zip Package",
+      "generators": ["ZIP"]
     }
   ],
   "workflowPresets": [
     {
-      "name": "debug",
+      "name": "debug-windows",
       "steps": [
         {
           "type": "configure",
-          "name": "debug"
+          "name": "debug-windows"
         },
         {
           "type": "build",
-          "name": "debug"
+          "name": "debug-windows"
         },
         {
           "type": "test",
-          "name": "debug"
+          "name": "debug-windows"
         },
         {
           "type": "package",
-          "name": "debug"
+          "name": "debug-windows"
         }
       ]
     }

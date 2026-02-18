@@ -2,7 +2,7 @@
 
 #include "cxxopts.hpp"
 #include "fmt/core.h"
-
+#include "stock_problem/stock_problem.h"
 static constexpr auto g_NAME = "Thomas";
 int main(int argc, char *argv[]) {
     fmt::println("Hello World {}", g_NAME);
@@ -29,6 +29,6 @@ int main(int argc, char *argv[]) {
     int foo = result["foo"].as<int>();
 
     fmt::print("foo is {}, bar is {}, debug is {}", foo, bar, debug);
-
+    auto s = stock_problem::Test();
     return 0;
 }

@@ -2,7 +2,3 @@ CompileFlags:
   CompilationDatabase: build/debug
   Add:
     - /std:c++latest
-
-Diagnostics:
-  Suppress: 
-    - 'microsoft-string-literal-from-predefined'  # clang complains about __FUNCTION__ so we ignore it
