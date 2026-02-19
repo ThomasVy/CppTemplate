@@ -24,3 +24,5 @@ class CppTemplate(ConanFile):
         self.requires("spdlog/1.15.3")
         self.requires("gtest/1.17.0")
         self.requires("cxxopts/3.3.1")
+        self.requires("benchmark/1.9.4")
+

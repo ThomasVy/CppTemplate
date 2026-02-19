@@ -9,3 +9,4 @@ os=Windows
 
 [conf]
 tools.env.virtualenv:powershell=pwsh
+tools.cmake.cmaketoolchain:generator=Ninja
