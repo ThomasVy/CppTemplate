@@ -25,4 +25,5 @@ class CppTemplate(ConanFile):
         self.requires("gtest/1.17.0")
         self.requires("cxxopts/3.3.1")
         self.requires("benchmark/1.9.4")
+        self.requires("openssl/3.3.2")
 

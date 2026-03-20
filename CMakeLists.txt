@@ -4,13 +4,10 @@ include(CTest)
 set(CMAKE_CXX_STANDARD 23) # Project default
 set(CMAKE_CXX_STANDARD_REQUIRED On)
 
-add_subdirectory(apps/app)
-add_subdirectory(external/common)
-add_subdirectory(libs/stock_problem)
+include(${CMAKE_SOURCE_DIR}/cmake/CMakeFunctions.cmake)
 
-if(BUILD_TESTING)
-    enable_testing()
-    add_subdirectory(tests)
-endif()
+add_subdirectory(apps)
+add_subdirectory(services)
+add_subdirectory(libs)
 
 include(CPack)

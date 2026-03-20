@@ -1,5 +1,6 @@
 #pragma once
 #include <expected>
+#include <optional>
 #include <vector>
 namespace stock_problem {
     struct Strategy {
