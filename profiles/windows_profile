@@ -10,3 +10,4 @@ os=Windows
 [conf]
 tools.env.virtualenv:powershell=pwsh
 tools.cmake.cmaketoolchain:generator=Ninja
+tools.cmake.cmakedeps:new=will_break_next
