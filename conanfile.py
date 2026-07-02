@@ -23,10 +23,11 @@ class CppTemplate(ConanFile):
         self.copy("*.dylib", "", "lib")
 
     def requirements(self):
-        self.requires("fmt/11.2.0")
-        self.requires("spdlog/1.15.3")
+        self.requires("fmt/12.1.0")
+        self.requires("spdlog/1.17.0")
         self.requires("gtest/1.17.0")
         self.requires("cxxopts/3.3.1")
-        self.requires("openssl/3.3.2")
-        self.requires("boost/1.90.0")
+        self.requires("openssl/4.0.1")
+        self.requires("boost/1.91.0")
         self.requires("magic_enum/0.9.7")
+        self.requires("nlohmann_json/3.12.0")
