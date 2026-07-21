@@ -2,7 +2,6 @@
 
 #include <vector>
 
-
 namespace stock_problem {
 
     Strategy StockProblem(const std::vector<int>& prices) {
@@ -28,19 +27,15 @@ namespace stock_problem {
         }
         return value + 2;
     }
-    static std::expected<int, ParseError> _MultiplyByTwo(int value){
+    static std::expected<int, ParseError> _MultiplyByTwo(int value) {
         if (value > 100) {
             return std::unexpected{ParseError::TooLarge};
         }
         return value * 2;
     }
-    static std::expected<int, ParseError> Init() {
-        return 50;
-    }
+    static std::expected<int, ParseError> Init() { return 50; }
 
     std::expected<int, ParseError> Test() {
-        return Init()
-            .and_then(_AddTwo)
-            .and_then(_MultiplyByTwo);
+        return Init().and_then(_AddTwo).and_then(_MultiplyByTwo);
     }
 }  // namespace stock_problem

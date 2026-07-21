@@ -48,6 +48,20 @@
       }
     },
     {
+      "name": "asan",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_ASAN": "ON"
+      }
+    },
+    {
+      "name": "ubsan",
+      "hidden": true,
+      "cacheVariables": {
+        "ENABLE_UBSAN": "ON"
+      }
+    },
+    {
       "name": "debug-windows",
       "inherits": ["default", "windows", "debug"]
     },
@@ -62,6 +76,16 @@
     {
       "name": "release-linux",
       "inherits": ["default", "linux", "release"]
+    },
+    {
+      "name": "debug-windows-asan",
+      "inherits": ["default", "windows", "debug", "asan"],
+      "binaryDir": "${sourceDir}/build/debug-asan"
+    },
+    {
+      "name": "debug-linux-sanitizers",
+      "inherits": ["default", "linux", "debug", "asan", "ubsan"],
+      "binaryDir": "${sourceDir}/build/debug-sanitizers"
     }
   ],
   "buildPresets": [
@@ -80,6 +104,14 @@
     {
       "name": "debug-linux",
       "configurePreset": "debug-linux"
+    },
+    {
+      "name": "debug-windows-asan",
+      "configurePreset": "debug-windows-asan"
+    },
+    {
+      "name": "debug-linux-sanitizers",
+      "configurePreset": "debug-linux-sanitizers"
     }
   ],
   "testPresets": [
