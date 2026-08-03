@@ -28,9 +28,9 @@ Use `find_package(<pkg> CONFIG REQUIRED)` in the consuming target.
 ## Project Layout
 
 - `apps/<name>/` — executables. Use `add_project_app(NAME <name> SRCS ... PRIVATE_DEPS ...)`.
-- `services/<name>/` — project-specific static libraries with optional tests. Use `add_project_library(...)` and `add_project_test(...)`.
+- `apps/<name>/internal_libs/<name>/` — app-scoped internal libraries (extracted for testability, not shared across repos). Use `add_project_library(...)` and `add_project_test(...)`.
 - `libs/<name>/` — shared/reusable libraries from the `CommonCppHelpers` submodule. Use `add_project_library(...)`.
-- `cmake/CMakeFunctions.cmake` — custom helpers: `add_project_library`, `add_project_app`, `add_project_test`.
+- `cmake/CMakeFunctions.cmake` — custom helpers: `add_project_library`, `add_project_app`, `add_project_test`, `add_project_mock`.
 
 Library conventions:
 - Public headers: `include/<name>/<header>.h(pp)` (under the target directory).
@@ -38,6 +38,7 @@ Library conventions:
 - Header-only libraries omit `SRCS` (they become `INTERFACE` targets).
 - `add_project_library` exposes `include/` PUBLIC and `src/` PRIVATE.
 - Include project headers with the library-qualified path, e.g. `"stock_problem/stock_problem.h"`, `"logger/logger.h"`, `"file_operations/i_file_operations.hpp"`.
+- Mocks for shared libs go in `tests/mocks/mock_<name>.hpp` under the lib. Declare ctor/dtor in the header, define them empty in `tests/mocks/mock_<name>.cpp` to avoid regenerating expensive ctor/dtor in every translation unit ([Google guide](https://google.github.io/googletest/gmock_cook_book.html#making-the-compilation-faster)). Use `add_project_mock(NAME <lib>_mocks SRCS tests/mocks/mock_<lib>.cpp HEADERS tests/mocks/mock_<lib>.hpp PUBLIC_DEPS <lib>)`.
 
 ## Code Style
 
@@ -48,6 +49,7 @@ Library conventions:
 - Use the rule-of-five macros from `common/RuleOfFiveMacros.h` when appropriate.
 - Existing code mixes member-naming conventions (`m_` vs `trailing_`). Match the file you edit; do not rename unrelated members in a drive-by refactor.
 - Keep public interfaces in `include/<lib>/` and implementations in `src/`. Prefer `i_*.hpp` naming for abstract interfaces.
+- Prefer interfaces (`i_*.hpp`), factories, and dependency injection over tight coupling. Avoid singletons — they hide dependencies and resist testing. Favor YAGNI (build what you need now) and DRY (extract duplication, not imagined reuse).
 
 ## Build & Test
 
@@ -102,12 +104,17 @@ The pre-commit hook formats staged C++ files with `clang-format`, re-stages them
 ## Adding Code
 
 - Add new source files to the explicit `SRCS`/`HEADERS` lists in the target's `CMakeLists.txt`. Do not use globbing for build sources.
-- For a new project-specific library: create `services/<name>/` and add `add_subdirectory(<name>)` to `services/CMakeLists.txt`.
+- For a new app-scoped internal library: create `apps/<name>/internal_libs/<name>/` and add `add_subdirectory(internal_libs/<name>)` to `apps/<name>/CMakeLists.txt`.
 - For a new app: create `apps/<name>/` and add `add_subdirectory(<name>)` to `apps/CMakeLists.txt`.
 - For a new shared/reusable helper meant to be used in other repos: add it inside `libs/<name>/` in the `CommonCppHelpers` submodule and update the submodule pointer in this repo.
 - Add new Conan dependencies to `conanfile.py` `requirements()`, then use `find_package(... CONFIG REQUIRED)` in the consumer.
 - Tests live in `tests/` under the target directory; use `add_project_test` and Google Test.
+- For a mock library of a shared lib: create `tests/mocks/mock_<name>.hpp` and `tests/mocks/mock_<name>.cpp` in `libs/<name>/`. Call `add_project_mock(NAME <name>_mocks SRCS mocks/mock_<name>.cpp HEADERS mocks/mock_<name>.hpp PUBLIC_DEPS <name>)` in `tests/CMakeLists.txt` before `add_project_test`. Internal lib tests pass `MOCK_DEPS <name>_mocks` to `add_project_test` to link the mock automatically.
+- In test fixtures, prefer constructor/destructor over `SetUp`/`TearDown` — members can be `const`, subclassing is safe without manual chaining, and cleanup is RAII. ([FAQ](https://google.github.io/googletest/faq.html#CtorVsSetUp))
 - Do not hardcode sanitizer flags in individual targets; use the presets or `ENABLE_ASAN`/`ENABLE_UBSAN` options.
+- Prefer `std::expected` over exceptions for recoverable errors. Reserve exceptions for truly exceptional conditions (preconditions, invariants, allocation failure). Use monadic operations (`.and_then`, `.transform`, `.or_else`) on `std::optional` and `std::expected` to chain fallible operations without nested error checking.
+- Use modern C++ techniques: `std::unique_ptr` for ownership, STL algorithm operations (`std::any_of`, `std::transform`, etc.), modern containers (`std::array`, `std::span`), concepts, `inline constexpr auto` constants, `#pragma once`, namespaces, `std::ranges`, `std::views`.
+- Prefer `std::unique_ptr` over `std::shared_ptr`. Only use `shared_ptr` when ownership is genuinely shared (multiple destinations must keep the object alive).
 
 ## Verification
 

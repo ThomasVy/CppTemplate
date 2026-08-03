@@ -3,6 +3,8 @@ set(PROJECT_NAME "app")
 find_package(fmt CONFIG REQUIRED)
 find_package(cxxopts CONFIG REQUIRED)
 
+add_subdirectory(internal_libs/stock_problem)
+
 add_project_app(
     NAME ${PROJECT_NAME}
     SRCS

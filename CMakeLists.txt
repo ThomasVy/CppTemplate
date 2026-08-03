@@ -7,10 +7,9 @@ include(${CMAKE_SOURCE_DIR}/cmake/Sanitizers.cmake)
 
 include(${CMAKE_SOURCE_DIR}/cmake/CMakeFunctions.cmake)
 include(${CMAKE_SOURCE_DIR}/cmake/Formatting.cmake)
+include(CTest)
 
 add_subdirectory(apps)
-add_subdirectory(services)
 add_subdirectory(libs)
 
-include(CTest)
 include(CPack)

@@ -86,7 +86,7 @@ function(add_project_test)
     TEST
     ""                                       # Options
     "NAME"                        # Single-value args
-    "SRCS;HEADERS;PRIVATE_DEPS;COMPILE_OPTIONS;COMPILE_DEFINITIONS;INCLUDE_DIRS"  # Multi-value args
+    "SRCS;HEADERS;PRIVATE_DEPS;MOCK_DEPS;COMPILE_OPTIONS;COMPILE_DEFINITIONS;INCLUDE_DIRS"  # Multi-value args
     ${ARGN}
   )
 
@@ -124,6 +124,9 @@ function(add_project_test)
   find_package(GTest REQUIRED)
   target_link_libraries(${TEST_NAME} PRIVATE GTest::gtest_main)
 
+  if(TEST_MOCK_DEPS)
+    target_link_libraries(${TEST_NAME} PRIVATE ${TEST_MOCK_DEPS})
+  endif()
   if(TEST_COMPILE_OPTIONS)
     target_compile_options(${TEST_NAME} PRIVATE ${TEST_COMPILE_OPTIONS})
   endif()
@@ -134,4 +137,53 @@ function(add_project_test)
   include(GoogleTest)
   gtest_discover_tests(${TEST_NAME})
   
+endfunction()
+
+function(add_project_mock)
+  cmake_parse_arguments(
+    MOCK
+    ""                                              # Options
+    "NAME"                                          # Single-value args
+    "SRCS;HEADERS;PUBLIC_DEPS;PRIVATE_DEPS"         # Multi-value args
+    ${ARGN}
+  )
+
+  if(NOT MOCK_NAME)
+    message(FATAL_ERROR "add_project_mock: NAME is required")
+  endif()
+
+  if(NOT BUILD_TESTING)
+    return()
+  endif()
+
+  find_package(GTest REQUIRED)
+
+  list(LENGTH MOCK_SRCS _src_count)
+  if(_src_count EQUAL 0)
+    # Header-only mock: INTERFACE, ctor/dtor generated per TU
+    add_library(${MOCK_NAME} INTERFACE)
+    target_include_directories(${MOCK_NAME}
+      INTERFACE $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    )
+    target_link_libraries(${MOCK_NAME} INTERFACE
+      ${MOCK_PUBLIC_DEPS}
+      GTest::gmock
+    )
+    if(MOCK_PRIVATE_DEPS)
+      target_link_libraries(${MOCK_NAME} INTERFACE ${MOCK_PRIVATE_DEPS})
+    endif()
+  else()
+    # Compiled mock: STATIC library, ctor/dtor defined once in .cc
+    add_library(${MOCK_NAME} STATIC ${MOCK_SRCS} ${MOCK_HEADERS})
+    target_include_directories(${MOCK_NAME}
+      PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    )
+    target_link_libraries(${MOCK_NAME} PUBLIC
+      ${MOCK_PUBLIC_DEPS}
+      GTest::gmock
+    )
+    if(MOCK_PRIVATE_DEPS)
+      target_link_libraries(${MOCK_NAME} PRIVATE ${MOCK_PRIVATE_DEPS})
+    endif()
+  endif()
 endfunction()

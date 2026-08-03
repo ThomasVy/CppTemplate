@@ -4,21 +4,21 @@
 using namespace ::testing;
 namespace stock_problem::test {
     struct StockProblemParams {
-        const std::vector<int> input_prices;
-        const stock_problem::Strategy expected_output;
+        std::vector<int> input_prices;
+        Strategy expected_output;
     };
 
     class TestStockProblem : public TestWithParam<StockProblemParams> {};
 
     TEST_P(TestStockProblem, DataTests) {
-        auto problem = GetParam();
+        const auto& problem = GetParam();
 
         auto actual = stock_problem::StockProblem(problem.input_prices);
         EXPECT_EQ(actual.buy_date, problem.expected_output.buy_date);
         EXPECT_EQ(actual.sell_date, problem.expected_output.sell_date);
     }
 
-    INSTANTIATE_TEST_CASE_P(
+    INSTANTIATE_TEST_SUITE_P(
         DataTestProblems,
         TestStockProblem,
         Values(
